@@ -5,13 +5,12 @@ import TextBox from "../../../components/UI/TextBox/TextBox";
 import HoverText from "../../../components/UI/HoverText/HoverText";
 import Button from "../../../components/UI/Button/Button";
 
-class SignIn extends Component{
-    render(){
-        const h2Class = [classes.title];
+class SignIn extends Component {
+  render() {
+    const h2Class = [classes.title];
 
-        return(
-            
-        <div className={classes.loginContent}>
+    return (
+      <div className={classes.loginContent}>
         <form>
           <img src={avatar} alt='image icon' />
           <h2 className={h2Class}>Sign In</h2>
@@ -23,15 +22,16 @@ class SignIn extends Component{
           <TextBox
             iconClasses='fas fa-lock'
             textboxName='Password'
-            inputType='password'/>
+            inputType='password'
+          />
 
-          <HoverText innerText='Forgot Your Password ?' />
+          <HoverText innerText='Forgot Your Password ?' path='/retrieve' />
           <Button styling='btn1' buttonText='Sign In' />
-          <Button styling='btn1 btnUp' buttonText='Sign Up Here' />
+          <Button styling='btn1 btnUp' buttonText='Sign Up Here' path='/' />
         </form>
       </div>
-        );
-    }
+    );
+  }
 }
 
-export default SignIn; 
+export default SignIn;

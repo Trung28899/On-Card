@@ -3,7 +3,7 @@ import classes from "./HoverText.module.css";
 
 const hoverText = (props) => {
   return (
-    <a href='/' className={classes.a}>
+    <a href={props.path} className={classes.a}>
       {props.innerText}
     </a>
   );

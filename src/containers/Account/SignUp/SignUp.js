@@ -38,7 +38,7 @@ class SignUp extends Component {
             textboxName='Confirm Your Password'
             inputType='password'
           />
-          <HoverText innerText='Return to Login.' />
+          <HoverText innerText='Return to Login.' path='/login' />
           <Button styling='btn1 btnUp' buttonText='Create Your Profile' />
         </form>
       </div>
