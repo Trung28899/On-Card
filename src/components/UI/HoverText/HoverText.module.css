@@ -1,0 +1,30 @@
+.a {
+  position: relative;
+  right: -22%;
+  margin-top: -15px;
+  display: block;
+  text-align: right;
+  text-decoration: none;
+  color: #999;
+  font-size: 0.9rem;
+  transition: 0.3s;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+}
+
+.a:hover {
+  color: #38d39f;
+}
+
+@media screen and (max-width: 900px) {
+  .a {
+    right: -25%;
+  }
+}
+
+@media screen and (max-width: 321px) {
+  .a {
+    font-size: 0.7rem;
+    right: -20%;
+  }
+}
