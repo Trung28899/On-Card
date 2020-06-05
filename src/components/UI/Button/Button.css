@@ -1,8 +1,8 @@
 .btn1 {
   position: relative;
-  left: 25%;
+  left: 27.5%;
   display: block;
-  width: 100%;
+  width: 400px;
   height: 40px;
   border-radius: 25px;
   outline: none;
@@ -16,6 +16,7 @@
   transition: 0.5s;
   text-align: center;
   padding-top: 10px;
+  margin-top: 10px;
 }
 .btn1:hover {
   background-position: right;
@@ -32,6 +33,12 @@
 .btnUp {
   margin-top: 10px;
   background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+@media screen and (max-width: 1000px) {
+  .btn1 {
+    width: 280px;
+  }
 }
 
 @media screen and (max-width: 767px) {

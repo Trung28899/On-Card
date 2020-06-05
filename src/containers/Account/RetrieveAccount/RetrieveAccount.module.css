@@ -1,0 +1,144 @@
+.loginContent {
+    position: relative;
+    top: 1%;
+    left: -35%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: right;
+  }
+  
+  .loginContent img {
+    position: relative;
+    height: 140px;
+    border-radius: 50%;
+    left: -25%;
+  }
+  
+  .loginContent h2 {
+    position: relative;
+    align-items: center;
+    left: -8%;
+    margin: 10px 0;
+    color: #333;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+  }
+  
+  .loginContent .titleUp {
+    margin-top: -0.5rem;
+  }
+  
+  .loginContent .input-div {
+    position: relative;
+    display: grid;
+    grid-template-columns: 7% 93%;
+    margin: 25px 0;
+    padding: 3px 0;
+    border-bottom: 2px solid #d9d9d9;
+  }
+  
+  .loginContent .input-div.one {
+    margin-top: 0;
+  }
+
+  .subText{
+    position: relative;
+    left: 25%;
+    text-align: center;
+    font-size: 1rem;
+    width: 70%;
+  }
+  
+  @media screen and (max-width: 1050px) {
+    .loginContent {
+      top: 0;
+      left: -45%;
+    }
+
+    .loginContent img {
+      position: relative;
+      height: 140px;
+      border-radius: 50%;
+      left: -10%;
+    }
+
+    .loginContent h2 {
+      left: 10%;
+    }
+
+    .subText{
+      left: 37.5%;
+    }
+  }
+  
+  @media screen and (max-width: 1000px) {
+  
+    .loginContent {
+      left: -12%;
+      justify-content: center;
+    }
+
+    .loginContent h2{
+      position: relative;
+      left: 0%;
+    }
+
+    .loginContent img{
+      left: -5%; 
+    };
+
+    .subText{
+      left: 25%;
+      width: 100%;
+    }    
+  }
+  
+  @media screen and (max-width: 767px) {
+    .loginContent {
+      left: -28%;
+      justify-content: center;
+    }
+  
+    .loginContent h2 {
+      font-size: 1.2rem;
+      left: 22.5%;
+    }
+
+    .loginContent img{
+      left: 2%; 
+    };
+  }
+  
+  @media screen and (max-width: 321px) {
+    .loginContent {
+      left: -37.5%;
+      justify-content: center;
+    }
+    .loginContent h2 {
+      font-size: 1rem;
+      left: 17.5%;
+    }
+
+    .subText{
+      width: 100%;
+      left: 30%;
+    }
+  
+    .loginContent img {
+      height: 80px;
+      left: -5%;
+    }
+  
+    .loginContent p {
+      position: relative;
+      font-size: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+  
+    .title,
+    .titleUp {
+      font-size: 0.75rem;
+    }
+  }
+  
