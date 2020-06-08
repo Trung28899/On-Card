@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import classes from "./RetrieveAccount.module.css";
 import avatar from "../../../assets/logo.svg";
 import TextBox from "../../../components/UI/TextBox/TextBox";
-import HoverText from "../../../components/UI/HoverText/HoverText";
 import Button from "../../../components/UI/Button/Button";
 
 class SignIn extends Component {
@@ -12,7 +11,7 @@ class SignIn extends Component {
     return (
       <div className={classes.loginContent}>
         <form>
-          <img src={avatar} alt='image icon' />
+          <img src={avatar} alt='avatar' />
           <h2 className={h2Class}>Forgot Your Password ?</h2>
           <h3 className={classes.subText}>
             Enter your email, we'll send you an email shortly about your account

@@ -11,6 +11,10 @@
   font-family: "Poppins", sans-serif;
 }
 
+.error {
+  border-bottom: 2px solid red;
+}
+
 .i {
   color: #d9d9d9;
   display: flex;
@@ -89,10 +93,27 @@
   margin-bottom: 4px;
 }
 
+.errorSpan {
+  position: relative;
+  top: 45%;
+  left: 35%;
+  color: red;
+}
+
+@media screen and (max-width: 1025px) {
+  .errorSpan {
+    left: 15%;
+  }
+}
+
 @media screen and (max-width: 900px) {
   .inputDiv {
     right: -25%;
     width: 19rem;
+  }
+
+  .errorSpan {
+    left: 45%;
   }
 }
 
@@ -117,6 +138,12 @@
   .inputDiv > div > input {
     top: -0.75rem;
     font-size: 1rem;
+  }
+
+  .errorSpan {
+    top: 20%;
+    left: 25%;
+    font-size: 0.7rem;
   }
 }
 
