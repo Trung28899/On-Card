@@ -158,6 +158,7 @@ class SignUp extends Component {
         this.state.password.value,
         this.state.serialNo.value
       );
+      this.sendVerificationEmail();
       this.props.history.replace("/profile/");
     } catch (error) {
       alert(error.message);
@@ -166,6 +167,18 @@ class SignUp extends Component {
 
   onSubmitHandler = () => {
     console.log("Submitted dawg !!");
+  };
+
+  sendVerificationEmail = () => {
+    const user = firebase.auth.currentUser;
+    user
+      .sendEmailVerification()
+      .then(function () {
+        console.log("email sent dawg !");
+      })
+      .catch(function (error) {
+        alert(error);
+      });
   };
 
   render() {

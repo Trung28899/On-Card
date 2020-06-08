@@ -3,8 +3,37 @@ import classes from "./RetrieveAccount.module.css";
 import avatar from "../../../assets/logo.svg";
 import TextBox from "../../../components/UI/TextBox/TextBox";
 import Button from "../../../components/UI/Button/Button";
+import firebase from "../../firebase/firebase";
 
 class SignIn extends Component {
+  state = {
+    email: null,
+    buttonClicked: false,
+  };
+
+  handleChange = (event) => {
+    this.setState({ email: event.target.value });
+  };
+
+  retrieveButtonHandler = () => {
+    this.setState({ buttonClicked: true }, () => {
+      this.retrieveAccount();
+    });
+  };
+
+  // See documentation:
+  // https://firebase.google.com/docs/auth/web/manage-users
+  retrieveAccount = () => {
+    firebase.auth
+      .sendPasswordResetEmail(this.state.email)
+      .then(() => {
+        console.log("email sent");
+      })
+      .catch(function (error) {
+        alert(error);
+      });
+  };
+
   render() {
     const h2Class = [classes.title];
 
@@ -21,9 +50,14 @@ class SignIn extends Component {
             iconClasses='fas fa-envelope'
             textboxName='Enter Your Email'
             inputType='text'
+            changed={(event) => this.handleChange(event)}
           />
 
-          <Button styling='btn1 btnUp' buttonText='Retrieve Account' />
+          <Button
+            styling='btn1 btnUp'
+            buttonText='Retrieve Account'
+            clicked={this.retrieveButtonHandler}
+          />
           <Button styling='btn1' buttonText='Return to Login' path='/login' />
         </form>
       </div>
