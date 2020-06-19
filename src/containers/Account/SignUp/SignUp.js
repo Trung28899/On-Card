@@ -182,13 +182,12 @@ class SignUp extends Component {
   };
 
   render() {
-    const h2Class = [classes.title, classes.titleUp];
 
     return (
       <div className={classes.loginContent}>
         <form onSubmit={this.onSubmitHandler}>
           <img src={avatar} alt='avatar' />
-          <h2 className={h2Class}>Create Your Profile</h2>
+          <h2>Create Your Profile</h2>
           <TextBox
             error={this.state.validation.errorEmail}
             iconClasses='fas fa-envelope'

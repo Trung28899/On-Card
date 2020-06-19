@@ -4,21 +4,48 @@ import avatar from "../../../assets/logo.svg";
 import TextBox from "../../../components/UI/TextBox/TextBox";
 import Button from "../../../components/UI/Button/Button";
 import firebase from "../../firebase/firebase";
+import Modal from '../../../components/UI/Modal/Modal'; 
+import Backdrop from '../../../components/UI/Backdrop/Backdrop'; 
+
+import { Redirect, Switch } from "react-router-dom";
 
 class SignIn extends Component {
   state = {
     email: null,
     buttonClicked: false,
+    validation: {
+      errorEmail: null,
+    },
+    error: false, 
+    modalIsOpen: false,
+    redirect: false, 
+  };
+
+  componentDidUpdate() {
+    if(this.state.buttonClicked){
+      setTimeout(() => {
+        this.setState({redirect: true}); 
+      }, 8500);
+    }
+  }
+
+  showModal = () => {
+    this.setState({ modalIsOpen: true });
+  };
+
+  closeModal = () => {
+    this.setState({ modalIsOpen: false});
+    this.setState({buttonClicked: true });
   };
 
   handleChange = (event) => {
-    this.setState({ email: event.target.value });
+    this.setState({ email: event.target.value});
   };
 
   retrieveButtonHandler = () => {
-    this.setState({ buttonClicked: true }, () => {
-      this.retrieveAccount();
-    });
+    // this.showModal(); 
+    // this.setState({validation: {errorEmail: null}}, () => this.formValidation());
+    this.formValidation(); 
   };
 
   // See documentation:
@@ -27,26 +54,51 @@ class SignIn extends Component {
     firebase.auth
       .sendPasswordResetEmail(this.state.email)
       .then(() => {
-        console.log("email sent");
+        this.showModal(); 
       })
       .catch(function (error) {
         alert(error);
       });
   };
 
-  render() {
-    const h2Class = [classes.title];
+  formValidation() {
+    let errorEmail = null; 
 
+    // email validation:
+    if (this.state.email === null || this.state.email === "") {
+      errorEmail = "*Field Required !";
+    } else {
+      const reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+      if (reg.test(this.state.email) === false) {
+        errorEmail = "*Invalid email!";
+      }
+    }
+
+    this.setState({validation: {
+      errorEmail: errorEmail, 
+    }}, () => {
+      if(this.state.validation.errorEmail !== null){
+        this.setState({error: true, }); 
+      } else {
+        this.setState({ buttonClicked: true }, () => {
+          this.retrieveAccount();
+        });
+      }
+    })
+  }
+
+  render() {
     return (
       <div className={classes.loginContent}>
         <form>
           <img src={avatar} alt='avatar' />
-          <h2 className={h2Class}>Forgot Your Password ?</h2>
+          <h2>Forgot Your Password ?</h2>
           <h3 className={classes.subText}>
             Enter your email, we'll send you an email shortly about your account
             information
           </h3>
           <TextBox
+            error={this.state.error ? this.state.validation.errorEmail : null}
             iconClasses='fas fa-envelope'
             textboxName='Enter Your Email'
             inputType='text'
@@ -59,6 +111,15 @@ class SignIn extends Component {
             clicked={this.retrieveButtonHandler}
           />
           <Button styling='btn1' buttonText='Return to Login' path='/login' />
+
+          <Modal show={this.state.modalIsOpen} closed={this.closeModal} email={this.state.email}/>
+          <Backdrop show={this.state.modalIsOpen} />
+
+          <Switch>
+          {this.state.redirect ? (
+            <Redirect from='/retrieve' to='/login' />
+          ) : null}
+        </Switch>
         </form>
       </div>
     );

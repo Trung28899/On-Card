@@ -9,6 +9,8 @@
 }
 
 .loginContent img {
+  position: relative;
+  left: -3.5%;
   height: 140px;
   border-radius: 50%;
 }
@@ -16,7 +18,7 @@
 .loginContent h2 {
   position: relative;
   align-items: center;
-  left: 12%;
+  left: 11%;
   margin: 10px 0;
   color: #333;
   text-transform: uppercase;
@@ -57,8 +59,14 @@
     justify-content: center;
   }
 
+  .loginContent img {
+    left: 2.5%;
+    height: 140px;
+    border-radius: 50%;
+  }
+
   .loginContent h2 {
-    left: 22%;
+    left: 27%;
     font-size: 2rem;
     margin: 8px 0;
     text-align: center;
@@ -74,23 +82,28 @@
 
   .loginContent h2 {
     font-size: 1.2rem;
-    left: 22.5%;
+    left: 27%;
   }
 }
 
 @media screen and (max-width: 321px) {
   .loginContent {
-    left: -42.5%;
+    left: -40%;
     justify-content: center;
   }
+  
   .loginContent h2 {
+    position: relative;
     font-size: 1.2rem;
-    left: 35%;
+    left: 34%;
   }
 
   .loginContent img {
+    position: relative;
+    left: -1%;
     height: 80px;
   }
+
 
   .loginContent p {
     position: relative;

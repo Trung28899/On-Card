@@ -80,15 +80,17 @@
   
   @media screen and (max-width: 321px) {
     .loginContent {
-      left: -42.5%;
+      left: -40%;
       justify-content: center;
     }
     .loginContent h2 {
       font-size: 1.2rem;
-      left: 35%;
+      left: 34%;
     }
   
     .loginContent img {
+      position: relative;
+      left: -1%;
       height: 80px;
     }
   
