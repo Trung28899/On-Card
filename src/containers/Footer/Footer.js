@@ -18,17 +18,6 @@ class Footer extends Component{
             </div>
             <p className={classes.rightsText}>© 2020 Copyright By On-Card All Rights Reserved.</p>
         </div>
-
-        <div className={classes.rightCol}>
-            <h1>Room For Improvement</h1>
-            <div className={classes.border}></div>
-            <p>Let us know if any improvements can be done to serve you better
-            </p>
-            <form action="" className={classes.newsletterForm}>
-                <input type="text" className={classes.txtb} placeholder="Thoughts ?"/>
-                <input type="submit" className={classes.btn} value="submit"/>
-          </form>
-        </div>
       </div>
     );
   }

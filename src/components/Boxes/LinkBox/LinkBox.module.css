@@ -4,11 +4,15 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    background-color: #ffffff;
+    background-color: #f2f2f2;
     width: 40%;
     left: 30%;
     border-radius: 10px;
     cursor: pointer;
+
+    -moz-box-shadow: 3px 3px 3px #ccc;
+    -webkit-box-shadow: 3px 3px 3px #ccc;
+    box-shadow: 3px 3px 3px #ccc;
 }
 
 .LinkBox img {
