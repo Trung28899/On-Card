@@ -1,0 +1,94 @@
+.center {
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .formInput {
+    width:250px;
+    padding:20px;
+  }
+  .formInput input {
+    display:none;
+  }
+  
+  .formInput label {
+    position: absolute;
+    top: 10%;
+    right: 42.5%;
+    display:block;
+    width:30px;
+    height:30px;
+    line-height:30px;
+    text-align:center;
+    background:#fff;
+    color:#333;
+    font-size:15px;
+    font-family:"Open Sans",sans-serif;
+    text-transform:Uppercase;
+    font-weight:600;
+    border-radius:50%;
+    cursor:pointer;
+    margin-top:10px;
+  }
+  
+  .formInput img {
+    width:90%;
+    height: 90%; 
+    display:block;
+    border-radius: 50%;
+  }
+
+  @media screen and (min-width: 2300px) {
+    .formInput label{
+      right: 46.5%;
+    }
+}
+
+  @media screen and (min-width: 1800px) and (max-width: 2299px) {
+    .formInput label{
+      right: 45.5%;
+    }
+  }
+
+@media screen and (max-width: 1050px) {
+  .formInput label{
+    right: 40.5%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .formInput label{
+    right: 37.5%;
+  }
+
+  .formInput img {
+    margin-left: 8.5%;
+    width:80%;
+    height: 80%; 
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .formInput label{
+    right: 24.5%;
+  }
+
+  .formInput img {
+    margin-left: 12.5%;
+    width:75%;
+    height: 75%; 
+  }
+}
+
+@media screen and (max-width: 321px) {
+  .formInput label{
+    right: 20%;
+  }
+
+  .formInput img {
+    margin-left: 17.5%;
+    width:70%;
+    height: 70%; 
+  }
+}

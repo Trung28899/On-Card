@@ -5,6 +5,7 @@ import edit from '../../../assets/header/edit.svg';
 import classes from './HeaderBox.module.css'; 
 
 import Logo from '../../UI/Logo/Logo'; 
+// import UploadImage from '../../UI/UploadImage/UploadImage'; 
 
 class HeaderBox extends Component{
     render(){

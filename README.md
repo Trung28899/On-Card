@@ -11,7 +11,9 @@ NEXT STEP:
 - Try to implement drop down list:
   https://github.com/Godsont/Custom-Select-Box
 
-2. Tools Used
+2. Tools Used: 
+- Dark button from: 
+https://codepen.io/ozer/pen/KwvKoR
 
 3. Tasks to be done:
 - Implement validator for retrieve password [DONE]
@@ -19,9 +21,9 @@ NEXT STEP:
 - Implement loader modal for async task (login, sign up) []
 
 - Design for needed pages []: 
-  +, Main Page []
+  +, Main Page [DONE]
   +, Edit Page []
-  +, View Page []
+  +, View Page [DONE]
 - Pages functional []
 - Authentication Implemented[]:
   +, install redux[]
@@ -39,3 +41,10 @@ but use css for your UI
 - Implement modal for error instead of alerting it
 (sign in, sign up, retrieve password) []
 - Implement Loader for async task (retrieve) []
+
+
+
+- Copy to Clipboard js: 
+https://www.w3schools.com/howto/howto_js_copy_clipboard.asp
+- Copy to clipboard react: 
+https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard

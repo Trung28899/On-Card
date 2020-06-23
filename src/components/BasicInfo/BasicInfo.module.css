@@ -1,0 +1,43 @@
+.BasicInfo {
+    position: relative;
+    width: 100%;
+    height: wrap; 
+    margin-left: 5%;
+    margin-top: 3%;
+}
+
+@media screen and (min-width: 2300px) {
+    .BasicInfo{
+        margin-left: 14%;
+    }
+}
+
+@media screen and (min-width: 1800px) and (max-width: 2299px) {
+    .BasicInfo{
+        margin-left: 11%;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .BasicInfo{
+        margin-left: 2.5%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .BasicInfo{
+        margin-left: 3.25%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .BasicInfo{
+        margin-left: -14.5%;
+    }
+}
+
+@media screen and (max-width: 321px) {
+    .BasicInfo{
+        margin-left: -27%;
+    }
+  }

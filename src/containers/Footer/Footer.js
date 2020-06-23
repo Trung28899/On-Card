@@ -9,7 +9,7 @@ class Footer extends Component{
       <div className={classes.footerContainer}>
         <div className={classes.leftCol}>
             <img src={logo} alt="" className={classes.logo} />
-            <div class={classes.socialMedia}>
+            <div className={classes.socialMedia}>
                 <a><i className="fab fa-facebook-f"></i></a>
                 <a ><i className="fab fa-twitter"></i></a>
                 <a ><i className="fab fa-instagram"></i></a>
