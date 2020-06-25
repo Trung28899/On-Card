@@ -1,13 +1,25 @@
-import React from "react";
+import React, { Component } from "react";
 import classes from "./SimpleTextBox.module.css";
 
-const modal = (props) => {
-  const cssClasses = [classes.Modal, props.show ? classes.ModalOpen : classes.ModalClosed];
+class Modal extends Component {
+  updateInput = (event) => {
+    this.props.urlEntered(event.target.value);
+  };
 
-  return (
-    <input type="text" placeholder="Enter URL / Phone Number"
-        className={classes.input}></input>
-  );
-};
+  render() {
+    const cssClasses = [
+      classes.Modal,
+      this.props.show ? classes.ModalOpen : classes.ModalClosed,
+    ];
+    return (
+      <input
+        type="text"
+        placeholder="Enter URL / Phone Number"
+        className={classes.input}
+        onChange={(event) => this.updateInput(event)}
+      ></input>
+    );
+  }
+}
 
-export default modal;
+export default Modal;

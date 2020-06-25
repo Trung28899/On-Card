@@ -4,8 +4,8 @@ import avatar from "../../../assets/logo.svg";
 import TextBox from "../../../components/UI/TextBox/TextBox";
 import Button from "../../../components/UI/Button/Button";
 import firebase from "../../firebase/firebase";
-import Modal from '../../../components/UI/Modal/Modal'; 
-import Backdrop from '../../../components/UI/Backdrop/Backdrop'; 
+import ModalRetrieve from "../../../components/UI/Modal/ModalRetrieve/ModalRetrieve";
+import Backdrop from "../../../components/UI/Backdrop/Backdrop";
 
 import { Redirect, Switch } from "react-router-dom";
 
@@ -16,15 +16,15 @@ class SignIn extends Component {
     validation: {
       errorEmail: null,
     },
-    error: false, 
+    error: false,
     modalIsOpen: false,
-    redirect: false, 
+    redirect: false,
   };
 
   componentDidUpdate() {
-    if(this.state.buttonClicked){
+    if (this.state.buttonClicked) {
       setTimeout(() => {
-        this.setState({redirect: true}); 
+        this.setState({ redirect: true });
       }, 8500);
     }
   }
@@ -34,18 +34,18 @@ class SignIn extends Component {
   };
 
   closeModal = () => {
-    this.setState({ modalIsOpen: false});
-    this.setState({buttonClicked: true });
+    this.setState({ modalIsOpen: false });
+    this.setState({ buttonClicked: true });
   };
 
   handleChange = (event) => {
-    this.setState({ email: event.target.value});
+    this.setState({ email: event.target.value });
   };
 
   retrieveButtonHandler = () => {
-    // this.showModal(); 
+    // this.showModal();
     // this.setState({validation: {errorEmail: null}}, () => this.formValidation());
-    this.formValidation(); 
+    this.formValidation();
   };
 
   // See documentation:
@@ -54,7 +54,7 @@ class SignIn extends Component {
     firebase.auth
       .sendPasswordResetEmail(this.state.email)
       .then(() => {
-        this.showModal(); 
+        this.showModal();
       })
       .catch(function (error) {
         alert(error);
@@ -62,7 +62,7 @@ class SignIn extends Component {
   };
 
   formValidation() {
-    let errorEmail = null; 
+    let errorEmail = null;
 
     // email validation:
     if (this.state.email === null || this.state.email === "") {
@@ -74,24 +74,29 @@ class SignIn extends Component {
       }
     }
 
-    this.setState({validation: {
-      errorEmail: errorEmail, 
-    }}, () => {
-      if(this.state.validation.errorEmail !== null){
-        this.setState({error: true, }); 
-      } else {
-        this.setState({ buttonClicked: true }, () => {
-          this.retrieveAccount();
-        });
+    this.setState(
+      {
+        validation: {
+          errorEmail: errorEmail,
+        },
+      },
+      () => {
+        if (this.state.validation.errorEmail !== null) {
+          this.setState({ error: true });
+        } else {
+          this.setState({ buttonClicked: true }, () => {
+            this.retrieveAccount();
+          });
+        }
       }
-    })
+    );
   }
 
   render() {
     return (
       <div className={classes.loginContent}>
         <form>
-          <img src={avatar} alt='avatar' />
+          <img src={avatar} alt="avatar" />
           <h2>Forgot Your Password ?</h2>
           <h3 className={classes.subText}>
             Enter your email, we'll send you an email shortly about your account
@@ -99,28 +104,34 @@ class SignIn extends Component {
           </h3>
           <TextBox
             error={this.state.error ? this.state.validation.errorEmail : null}
-            iconClasses='fas fa-envelope'
-            textboxName='Enter Your Email'
-            inputType='text'
+            iconClasses="fas fa-envelope"
+            textboxName="Enter Your Email"
+            inputType="text"
             changed={(event) => this.handleChange(event)}
           />
 
           <Button
-            styling='btn1 btnUp'
-            buttonText='Retrieve Account'
+            styling="btn1 btnUp"
+            buttonText="Retrieve Account"
             clicked={this.retrieveButtonHandler}
           />
-          <Button styling='btn1' buttonText='Return to Login' path='/login' />
+          <Button styling="btn1" buttonText="Return to Login" path="/login" />
 
-          <Modal show={this.state.modalIsOpen} closed={this.closeModal} email={this.state.email} 
-          h3text="An email has been sent to" h3text2="Please Check Your Email !" buttonName="Dismiss"/>
+          <ModalRetrieve
+            show={this.state.modalIsOpen}
+            closed={this.closeModal}
+            email={this.state.email}
+            h3text="An email has been sent to"
+            h3text2="Please Check Your Email !"
+            buttonName="Dismiss"
+          />
           <Backdrop show={this.state.modalIsOpen} />
 
           <Switch>
-          {this.state.redirect ? (
-            <Redirect from='/retrieve' to='/login' />
-          ) : null}
-        </Switch>
+            {this.state.redirect ? (
+              <Redirect from="/retrieve" to="/login" />
+            ) : null}
+          </Switch>
         </form>
       </div>
     );
