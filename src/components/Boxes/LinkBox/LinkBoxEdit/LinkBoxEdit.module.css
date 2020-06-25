@@ -17,18 +17,21 @@
 }
 
 .LinkBoxEdit img {
-    height: 100px;
-    border-radius: 50%;
-    margin: 5px 5px;
+    height: 90px;
+    border-radius: 10px;
+    margin: 15px;
+    margin-right: 5px;
+    margin-left: 15px;
 }
 
 .LinkBoxEdit h2 {
-    margin-left: 18%;
+    margin-left: 10%;
 }
 
 
 .buttonBar{
-    position: relative;
+    position: absolute;
+    right: 35px;
     display: flex;
     width: 100px;
     margin-left: 50px;
@@ -75,8 +78,10 @@
 
     .LinkBoxEdit img {
         height: 80px;
-        border-radius: 70%;
-        margin: 10px 5px;
+        border-radius: 12px;
+        margin: 15px;
+        margin-right: 5px;
+        margin-left: 10px;
     }
     
     .LinkBoxEdit h2 {

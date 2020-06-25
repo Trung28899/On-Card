@@ -1,0 +1,17 @@
+.input{
+    position: relative;
+    margin-top: -10%;
+    margin-bottom: 2.5%;
+    width: 100%;
+    border:2px solid #aaa;
+    border-radius:4px;
+    outline:none;
+    padding:8px;
+    box-sizing:border-box;
+    transition:.3s;
+  }
+  
+  .input:focus{
+    border-color:dodgerBlue;
+    box-shadow:0 0 8px 0 dodgerBlue;
+  }

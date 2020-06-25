@@ -9,7 +9,7 @@ class BlackButton extends Component{
             buttonClasses.push(classes.updateButton);
         }
         return (
-            <button className={buttonClasses.join(' ')}>
+            <button className={buttonClasses.join(' ')} onClick={this.props.clicked}>
                 <i className={this.props.iconClass}></i>
                 {this.props.content}
             </button>

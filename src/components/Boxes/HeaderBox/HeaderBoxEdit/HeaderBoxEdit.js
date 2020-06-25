@@ -7,6 +7,24 @@ import view from '../../../../assets/header/view1.svg';
 import UploadImage from '../../../UI/UploadImage/UploadImage'; 
 
 class HeaderBoxEdit extends Component{
+
+    // reference: https://techoverflow.net/2018/03/30/copying-strings-to-the-clipboard-using-pure-javascript/
+    copyToClipboard = (event) => {
+        let stringCopied = document.createElement('textarea');
+        // Getting the content in <p>
+        const linkName = document.getElementsByClassName("link")[0].innerHTML;
+
+        stringCopied.value = linkName;
+        stringCopied.setAttribute('readonly', '');
+        stringCopied.style = {position: 'absolute', left: '-9999px', display: 'none'};
+
+        document.body.appendChild(stringCopied);
+        stringCopied.select();
+        document.execCommand('copy');
+        
+        document.body.removeChild(stringCopied);
+    }
+
     render(){
         const buttonClasses = [classes.btn, classes.btnDark]; 
         return(
@@ -20,8 +38,8 @@ class HeaderBoxEdit extends Component{
                 </div>
                 <div className={classes.PageBar}>
                     <h4>Your On-Card Page: </h4>
-                    <p>localhost:3000/profile</p>
-                    <button className={buttonClasses}> <i className="fas fa-copy"></i> Copy</button>
+                    <p className="link">localhost:3000/profile</p>
+                    <button className={buttonClasses} onClick={(event) => this.copyToClipboard(event)}> <i className="fas fa-copy"></i> Copy</button>
                 </div>
             </div>
         );

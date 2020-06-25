@@ -3,39 +3,53 @@
 - Firebase manage user:
   https://firebase.google.com/docs/auth/web/manage-users
 
-NEXT STEP:
 
-- Try to implement draggable list:
-  https://shopify.github.io/draggable/examples/simple-list.html
+2a. Tools Used: 
 
-- Try to implement drop down list:
-  https://github.com/Godsont/Custom-Select-Box
-
-2. Tools Used: 
 - Dark button from: 
 https://codepen.io/ozer/pen/KwvKoR
 
-3. Tasks to be done:
-- Implement validator for retrieve password [DONE]
-- Implement indicator for retrieve password [DONE]
-- Implement loader modal for async task (login, sign up) []
+- Drop down list:
+  https://github.com/Godsont/Custom-Select-Box
 
-- Design for needed pages []: 
-  +, Main Page [DONE]
-  +, Edit Page []
-  +, View Page [DONE]
-- Pages functional []
+2b. Trick learnt from the project: 
+- Swap, remove and add element of array in javascript: 
+components/SocialMediaList/SocialMediaList.js
+see: btnUpClickedHandler, btnDownClickedHandler, deleteClickedHandler
+example: 
+let nextValue = socialMediaListCopied[index]; 
+socialMediaListCopied[index] = socialMediaListCopied[index-1];
+socialMediaListCopied[index-1] = nextValue; 
+
+- How to pass data from child to parent: See SocialMediaList.js (parent)
+and Modal.js (child)
+https://stackoverflow.com/questions/38394015/how-to-pass-data-from-child-component-to-its-parent-in-reactjs
+
+- Copy to clipboard: see copyToClipboard in components/Boxes/HeaderBox/HeaderBoxEdit
+Copy to Clipboard js: 
+https://www.w3schools.com/howto/howto_js_copy_clipboard.asp
+Copy to clipboard react: 
+https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+
+3. Tasks to be done:
+
+- Pages functional []: 
+  +, Learn how to use Context API[]
+  +, Make Add account button works for EditPage[]
+  +, Fix Retrieve account Modal[]
+  +, Update Changes should pull up a Modal []
 - Authentication Implemented[]:
   +, install redux[]
   +, read redux basics and redux advanced[]
   +, implement redux for authentication[]
+- Fully Front-end implemented[]: 
+  +, should have all the data ready to be send[]
+  +, set up a dummy object for retrieving data on front-end[]
 - Fully back-end implemented[]
 - application beta finish[]
 
 - Learn firestore[]
-
-NOTES: view react bootstrap components for UI reference
-but use css for your UI
+- Learn how to use Context API[]
 
 4. Improvement tasks: 
 - Implement modal for error instead of alerting it
@@ -44,7 +58,7 @@ but use css for your UI
 
 
 
-- Copy to Clipboard js: 
-https://www.w3schools.com/howto/howto_js_copy_clipboard.asp
-- Copy to clipboard react: 
-https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+- Do Social Media Page Listing (Design) [DONE]
+- Do front-end functionality for Edit Profile []
+- Added routing for all pages []
+- Added redux, authentication for all pages []

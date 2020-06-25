@@ -10,7 +10,7 @@ class BlackButtonEdit extends Component{
         } 
         
         return (
-            <button className={buttonClasses.join(' ')}>
+            <button className={buttonClasses.join(' ')} onClick={this.props.clicked}>
                 <i className={this.props.iconClass}></i>
             </button>
         );

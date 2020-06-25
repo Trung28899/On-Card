@@ -112,7 +112,8 @@ class SignIn extends Component {
           />
           <Button styling='btn1' buttonText='Return to Login' path='/login' />
 
-          <Modal show={this.state.modalIsOpen} closed={this.closeModal} email={this.state.email}/>
+          <Modal show={this.state.modalIsOpen} closed={this.closeModal} email={this.state.email} 
+          h3text="An email has been sent to" h3text2="Please Check Your Email !" buttonName="Dismiss"/>
           <Backdrop show={this.state.modalIsOpen} />
 
           <Switch>

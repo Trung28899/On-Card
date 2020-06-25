@@ -7,10 +7,11 @@
     padding: 10px;
     text-align: center;
     box-sizing: border-box;
-    top: 35%;
+    top: 10%;
     left: 25%;
     width: 50%;
-    transition: all 0.5s ease-out;
+    transition: all 0.95s ease-out;
+    height: auto;
   }
   
   .ModalOpen {
@@ -21,7 +22,7 @@
   /* opacity: 0 make the component disappear*/
   .ModalClosed {
     opacity: 0;
-    transform: translateY(-100%);
+    transform: translateY(-150%);
   }
 
   .Button {
@@ -48,17 +49,65 @@
     padding-top: 1.5%;
   }
 
-  @media screen and (max-width: 1050px) {
-    .Modal {
-        top: 40%;
+  .container {
+    margin-top: 100px;
+    padding: 32px;
+  }
+
+  .closeButton{
+    position: fixed;
+    right: 1%;
+    top: -2.5%;
+    font-size: 1rem;
+    cursor: pointer;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: whitesmoke;
+    border: 0.5px solid #333;
+  }
+
+  @media screen and (min-width: 1800px) {
+
+    .Button {
+      font-size: 1.25rem;
+      padding-bottom: 0%;
+      padding-top: 0%;
     }
+
+  }
+
+  @media screen and (max-width: 1000px) {
+    .Modal {
+        top: 20%;
+    }
+
+    .Button {
+      font-size: 1rem;
+      padding-bottom: 1%;
+      padding-top: 1.5%;
+    }
+
   }
 
   @media screen and (max-width: 767px) {
     .Modal {
-        top: 37.5%;
+        top: 20%;
         left: 5%;
         width: 90%;
       }
       
   }  
+
+  @media screen and (max-width: 321px) {
+    .Modal {
+        top: 5%;
+        left: 5%;
+        width: 90%;
+      }
+      .Button {
+        font-size: 0.75rem;
+        padding-bottom: 1%;
+        padding-top: 1.5%;
+      }
+  }

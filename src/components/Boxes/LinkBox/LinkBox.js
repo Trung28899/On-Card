@@ -1,7 +1,7 @@
 import React, {Component} from 'react'; 
 // import user from '../../../assets/header/user.svg'; 
 // import classes from './HeaderBox.module.css'; 
-import url from '../../../assets/header/url.svg'; 
+import url from '../../../assets/icons/url.svg'; 
 import classes from './LinkBox.module.css'; 
 
 class LinkBox extends Component{
