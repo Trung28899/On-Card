@@ -33,7 +33,6 @@
 
 3. Tasks to be done:
 
-- Implement Routing for all pages[]
 - Authentication Implemented[]:
   +, install redux[]
   +, read redux basics and redux advanced[]

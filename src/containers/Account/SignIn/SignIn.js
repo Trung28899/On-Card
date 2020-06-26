@@ -85,7 +85,7 @@ class SignIn extends Component {
     if (this.state.buttonClicked) {
       try {
         await firebase.login(this.state.email.value, this.state.password.value);
-        this.props.history.replace("/profile/");
+        this.props.history.push("/profile");
       } catch (error) {
         alert(error.message);
       }
@@ -98,30 +98,30 @@ class SignIn extends Component {
     return (
       <div className={classes.loginContent}>
         <form>
-          <img src={avatar} alt='avatar' />
+          <img src={avatar} alt="avatar" />
           <h2 className={h2Class}>Sign In</h2>
           <TextBox
             error={this.state.validation.errorEmail}
-            iconClasses='fas fa-envelope'
-            textboxName=' Email'
-            inputType='text'
+            iconClasses="fas fa-envelope"
+            textboxName=" Email"
+            inputType="text"
             changed={(event) => this.handleChange(event, "email")}
           />
           <TextBox
             error={this.state.validation.errorPassword}
-            iconClasses='fas fa-lock'
-            textboxName='Password'
-            inputType='password'
+            iconClasses="fas fa-lock"
+            textboxName="Password"
+            inputType="password"
             changed={(event) => this.handleChange(event, "password")}
           />
 
-          <HoverText innerText='Forgot Your Password ?' path='/retrieve' />
+          <HoverText innerText="Forgot Your Password ?" path="/retrieve" />
           <Button
-            styling='btn1'
-            buttonText='Sign In'
+            styling="btn1"
+            buttonText="Sign In"
             clicked={this.buttonClickedHandler}
           />
-          <Button styling='btn1 btnUp' buttonText='Sign Up Here' path='/' />
+          <Button styling="btn1 btnUp" buttonText="Sign Up Here" path="/" />
         </form>
       </div>
     );
