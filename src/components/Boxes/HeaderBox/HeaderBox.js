@@ -16,9 +16,13 @@ class HeaderBox extends Component {
 
     return (
       <div className={classes.HeaderBox}>
-        <img src={user} alt="avatar" className={classes.HeaderBoxImg} />
-        <Logo />
-        <p>This here is my bio tho</p>
+        <img
+          src={this.props.avatar}
+          alt="avatar"
+          className={classes.HeaderBoxImg}
+        />
+        <Logo content={this.props.userFullName} />
+        <p>{this.props.userBio}</p>
         <div className={buttonClasses.join(" ")}>
           <a onClick={this.props.editProfile}>
             <img src={edit} alt="edit" className={classes.ButtonBarImg} />

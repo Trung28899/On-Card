@@ -4,11 +4,23 @@ import classes from "./TextBox.module.css";
 class TextBox extends Component {
   state = {
     divClasses: [classes.inputDiv],
-    inputValue: null,
     inputEntered: false,
+    textHolderSet: false,
+    inputValue: null,
     focused: false,
     error: false,
+    textboxName: this.props.textboxName,
   };
+
+  componentDidMount() {
+    if (this.props.textHolder) {
+      this.setState({
+        divClasses: [classes.inputDiv, classes.focus],
+        focused: true,
+        textHolderSet: true,
+      });
+    }
+  }
 
   addcl = () => {
     this.setState({
@@ -18,8 +30,13 @@ class TextBox extends Component {
   };
 
   remcl = () => {
-    if (!this.state.inputEntered) {
-      this.setState({ divClasses: [classes.inputDiv], focused: false });
+    if (!this.state.inputEntered && !this.state.textHolderSet) {
+      this.setState({
+        divClasses: [classes.inputDiv],
+        focused: false,
+        textHolderSet: false,
+        inputEntered: false,
+      });
     }
   };
 
@@ -30,17 +47,21 @@ class TextBox extends Component {
           <i className={this.props.iconClasses}></i>
         </div>
         <div className={classes.div}>
-          <h5>{this.props.textboxName}</h5>
+          <h5>{this.state.textboxName}</h5>
           <input
             required
             type={this.props.inputType}
+            placeholder={this.props.textHolder}
             className={classes.input}
             onFocus={this.addcl}
             onBlur={this.remcl}
             onChange={(event) => {
               this.props.changed(event);
-              if (!this.state.inputEntered && event.target.value.length > 0) {
-                this.setState({ inputEntered: true });
+              if (event.target.value.length > 0) {
+                this.setState({
+                  inputEntered: true,
+                  inputValue: event.target.value,
+                });
               } else if (
                 this.state.inputEntered &&
                 event.target.value.length === 0

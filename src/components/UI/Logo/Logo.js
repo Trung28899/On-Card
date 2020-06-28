@@ -1,18 +1,17 @@
-import React from 'react';
-import classes from './Logo.module.css';
+import React from "react";
+import classes from "./Logo.module.css";
 
 /**
-* @author
-* @function Logo
-**/
+ * @author
+ * @function Logo
+ **/
 
 const Logo = (props) => {
-  return(
+  return (
     <div className={classes.logo}>
-        <p>Trevor Trinh</p>
+      <p>{props.content}</p>
     </div>
-   )
+  );
+};
 
- }
-
-export default Logo; 
+export default Logo;

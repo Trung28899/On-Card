@@ -6,20 +6,51 @@ import Footer from "../Footer/Footer";
 
 import waveImg from "../../assets/wave.png";
 
+import { connect } from "react-redux";
+import * as actionTypes from "../../store/actionTypes";
+
 class MainPage extends Component {
   render() {
+    const listItems = this.props.userInformation.socialMediaList.map(
+      (value, index) => {
+        return (
+          <LinkBox
+            iconType={value.icon}
+            content={value.title}
+            url={value.url}
+          />
+        );
+      }
+    );
     return (
       <div className={classes.ViewPage}>
         <img className={classes.wave} src={waveImg} alt="wave"></img>
-        <HeaderBox buttonShow={false} />
-        <LinkBox iconType="facebook" content="Facebook" />
-        <LinkBox iconType="twitter" content="Twitter" />
-        <LinkBox iconType="tiktok" content="Tiktok" />
-        <LinkBox iconType="instagram" content="Instagram" />
+        <HeaderBox
+          buttonShow={false}
+          avatar={this.props.userInformation.avatarImg}
+          userFullName={this.props.userInformation.fullName}
+          userBio={this.props.userInformation.bio}
+        />
+        {listItems}
         <Footer />
       </div>
     );
   }
 }
 
-export default MainPage;
+const mapStateToProps = (state) => {
+  return {
+    loggedIn: state.authenticated,
+    userInformation: state.userInfo,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // This is unused
+    authenticateUser: () => dispatch({ type: actionTypes.AUTHENTICATE }),
+    unauthenticateUser: () => dispatch({ type: actionTypes.UNAUTHENTICATE }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

@@ -33,26 +33,13 @@
 
 3. Tasks to be done:
 
-- Authentication Implemented[]:
-  +, install redux[]
-  +, read redux basics and redux advanced[]
-  +, implement redux for authentication[]
-- Fully Front-end implemented[]:
-  +, should have all the data ready to be send[]
-  +, set up a dummy object for retrieving data on front-end[]
 - Fully back-end implemented[]
 - application beta finish[]
 
 - Learn firestore[]
-- Learn how to use Context API[]
 
 4. Improvement tasks:
 
 - Implement modal for error instead of alerting it
   (sign in, sign up, retrieve password) []
 - Implement Loader for async task (retrieve) []
-
-* Do Social Media Page Listing (Design) [DONE]
-* Do front-end functionality for Edit Profile []
-* Added routing for all pages []
-* Added redux, authentication for all pages []

@@ -6,6 +6,9 @@ import HoverText from "../../../components/UI/HoverText/HoverText";
 import Button from "../../../components/UI/Button/Button";
 import firebase from "../../firebase/firebase";
 
+import { connect } from "react-redux";
+import * as actionTypes from "../../../store/actionTypes";
+
 class SignIn extends Component {
   state = {
     email: {
@@ -85,6 +88,7 @@ class SignIn extends Component {
     if (this.state.buttonClicked) {
       try {
         await firebase.login(this.state.email.value, this.state.password.value);
+        this.props.authenticateUser();
         this.props.history.push("/profile");
       } catch (error) {
         alert(error.message);
@@ -128,4 +132,17 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn;
+const mapStateToProps = (state) => {
+  return {
+    // This is unused
+    loggedIn: state.authenticated,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    authenticateUser: () => dispatch({ type: actionTypes.AUTHENTICATE }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

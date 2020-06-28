@@ -6,12 +6,15 @@ import Backdrop from "../UI/Backdrop/Backdrop";
 import Modal from "../UI/Modal/Modal";
 import ModalRetrieve from "../UI/Modal/ModalRetrieve/ModalRetrieve";
 
+import { connect } from "react-redux";
+import * as actionTypes from "../../store/actionTypes";
+
 class SocialMediaList extends Component {
   state = {
     modalIsOpen: false,
     modalRetrieveIsOpen: false,
     email: "trung28899@gmail.com",
-    socialMediaList: [],
+    socialMediaList: this.props.accountList,
   };
 
   /*
@@ -47,7 +50,9 @@ class SocialMediaList extends Component {
       socialMediaListCopied[index] = socialMediaListCopied[index - 1];
       socialMediaListCopied[index - 1] = nextValue;
 
-      this.setState({ socialMediaList: socialMediaListCopied });
+      this.setState({ socialMediaList: socialMediaListCopied }, () =>
+        this.props.updateSocialMediaList(this.state.socialMediaList)
+      );
     }
   };
 
@@ -59,14 +64,18 @@ class SocialMediaList extends Component {
       socialMediaListCopied[index] = socialMediaListCopied[index + 1];
       socialMediaListCopied[index + 1] = prevValue;
 
-      this.setState({ socialMediaList: socialMediaListCopied });
+      this.setState({ socialMediaList: socialMediaListCopied }, () =>
+        this.props.updateSocialMediaList(this.state.socialMediaList)
+      );
     }
   };
 
   deleteClickedHandler = (index) => {
     let socialMediaListCopied = this.state.socialMediaList;
     socialMediaListCopied.splice(index, 1);
-    this.setState({ socialMediaList: socialMediaListCopied });
+    this.setState({ socialMediaList: socialMediaListCopied }, () =>
+      this.props.updateSocialMediaList(this.state.socialMediaList)
+    );
   };
 
   addAccount = (accountType, url) => {
@@ -76,10 +85,13 @@ class SocialMediaList extends Component {
 
     socialMediaListCopied.push(addedObject);
 
-    this.setState({
-      socialMediaList: socialMediaListCopied,
-      modalIsOpen: false,
-    });
+    this.setState(
+      {
+        socialMediaList: socialMediaListCopied,
+        modalIsOpen: false,
+      },
+      () => this.props.updateSocialMediaList(this.state.socialMediaList)
+    );
   };
 
   addObject = (accountType, url) => {
@@ -187,4 +199,26 @@ class SocialMediaList extends Component {
   }
 }
 
-export default SocialMediaList;
+const mapStateToProps = (state) => {
+  return {
+    accountList: state.userInfo.socialMediaList,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateFullNameBio: (fullName, bio) =>
+      dispatch({
+        type: actionTypes.UPDATEFULLNAMEANDBIO,
+        valFullName: fullName,
+        valBio: bio,
+      }),
+    updateSocialMediaList: (accountList) =>
+      dispatch({
+        type: actionTypes.UPDATESOCIALMEDIA,
+        socialMediaListValue: accountList,
+      }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SocialMediaList);
