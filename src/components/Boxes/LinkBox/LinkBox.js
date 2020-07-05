@@ -53,9 +53,28 @@ class LinkBox extends Component {
     }
     return imageLoad;
   };
+
+  onClickHandler = () => {
+    switch (this.props.iconType) {
+      case "mail":
+        window.open("mailto:" + this.props.url);
+        break;
+      case "phoneNumber":
+        window.open = "tel:" + this.props.url;
+        break;
+      default:
+        try {
+          window.open(this.props.url);
+        } catch {
+          alert("Please Try Again !");
+        }
+        break;
+    }
+  };
+
   render() {
     return (
-      <div className={classes.LinkBox}>
+      <div className={classes.LinkBox} onClick={this.onClickHandler}>
         <img src={this.loadImage(this.props.iconType)} alt="url" />
         <h2>{this.props.content}</h2>
       </div>

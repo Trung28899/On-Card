@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import classes from "./Modal.module.css";
 import DropDownList from "../DropDownList/DropDownList";
 import SimpleTextBox from "../TextBox/SimpleTextBox/SimpleTextBox";
@@ -11,7 +10,11 @@ class Modal extends Component {
   };
 
   handleClick = () => {
-    this.props.clicked(this.state.accountType, this.state.url);
+    if (!this.state.url) {
+      alert("Please enter url to add your account !");
+    } else {
+      this.props.clicked(this.state.accountType, this.state.url);
+    }
   };
 
   accountTypeChosen = (dataFromChild) => {
@@ -38,7 +41,10 @@ class Modal extends Component {
           {this.props.h3text2}
         </h3>
         <DropDownList optionChosen={this.accountTypeChosen} />
-        <SimpleTextBox urlEntered={this.getUrl} />
+        <SimpleTextBox
+          urlEntered={this.getUrl}
+          textHolder="Enter URL / Phone Number"
+        />
         <button
           type="button"
           className={classes.Button}

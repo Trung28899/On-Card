@@ -5,6 +5,7 @@ const initialState = {
   authenticated: false,
   userInfo: {
     avatarImg: user,
+    avatarURL: "",
     email: "userloggedin@gmail.com",
     fullName: "On Card",
     bio: "Bio",
@@ -43,6 +44,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         userInfo: {
           avatarImg: action.imageLoaded,
+          avatarURL: action.imageURL,
           email: state.userInfo.email,
           fullName: state.userInfo.fullName,
           bio: state.userInfo.bio,
@@ -57,6 +59,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         userInfo: {
           avatarImg: state.userInfo.avatarImg,
+          avatarURL: state.userInfo.avatarURL,
           email: state.userInfo.email,
           fullName: action.valFullName,
           bio: action.valBio,
@@ -72,11 +75,60 @@ const reducer = (state = initialState, action) => {
         ...state,
         userInfo: {
           avatarImg: state.userInfo.avatarImg,
+          avatarURL: state.userInfo.avatarURL,
           email: state.userInfo.email,
           fullName: state.userInfo.fullName,
           bio: state.userInfo.bio,
           viewPage: state.userInfo.viewPage,
           socialMediaList: action.socialMediaListValue,
+        },
+      };
+
+    case actionTypes.PULLINFO:
+      return {
+        ...state,
+        userInfo: {
+          avatarImg: state.userInfo.avatarImg,
+          avatarURL: action.avatarURL,
+          email: action.email,
+          fullName: action.fullName,
+          bio: action.bio,
+          viewPage: action.viewPage,
+          socialMediaList: action.socialMediaList,
+        },
+      };
+
+    case actionTypes.PULLINFOVIEW:
+      return {
+        ...state,
+        userInfo: {
+          avatarImg: action.avatarURL,
+          avatarURL: action.avatarURL,
+          email: action.email,
+          fullName: action.fullName,
+          bio: action.bio,
+          socialMediaList: action.socialMediaList,
+        },
+      };
+
+    case actionTypes.LOGOUT:
+      return {
+        ...state,
+        authenticated: false,
+        userInfo: {
+          avatarImg: user,
+          avatarURL: "",
+          email: "userloggedin@gmail.com",
+          fullName: "On Card",
+          bio: "Bio",
+          viewPage: "localhost:3000/view",
+          socialMediaList: [
+            //   {
+            //     title: null,
+            //     icon: null,
+            //     url: null,
+            //   },
+          ],
         },
       };
 

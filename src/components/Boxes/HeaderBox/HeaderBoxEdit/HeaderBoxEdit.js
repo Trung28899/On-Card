@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import logo from "../../../../assets/logo.svg";
 import classes from "./HeaderBoxEdit.module.css";
 
 import logout from "../../../../assets/header/logout.svg";
 import view from "../../../../assets/header/view1.svg";
 import UploadImage from "../../../UI/UploadImage/UploadImage";
+
+import { connect } from "react-redux";
+import * as actionTypes from "../../../../store/actionTypes";
 
 class HeaderBoxEdit extends Component {
   // reference: https://techoverflow.net/2018/03/30/copying-strings-to-the-clipboard-using-pure-javascript/
@@ -47,7 +49,7 @@ class HeaderBoxEdit extends Component {
         </div>
         <div className={classes.PageBar}>
           <h4>Your On-Card Page: </h4>
-          <p className="link">localhost:3000/profile</p>
+          <p className="link">{this.props.pageUrl}</p>
           <button
             className={buttonClasses}
             onClick={(event) => this.copyToClipboard(event)}
@@ -61,4 +63,25 @@ class HeaderBoxEdit extends Component {
   }
 }
 
-export default HeaderBoxEdit;
+const mapStateToProps = (state) => {
+  return {
+    // This is unused
+    pageUrl: state.userInfo.viewPage,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // This is unused
+    authenticateUser: () => dispatch({ type: actionTypes.AUTHENTICATE }),
+    unauthenticateUser: () => dispatch({ type: actionTypes.UNAUTHENTICATE }),
+    updateImage: (imagePassed, imageUrl) =>
+      dispatch({
+        type: actionTypes.IMAGEUPDATE,
+        imageLoaded: imagePassed,
+        imageURL: imageUrl,
+      }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderBoxEdit);

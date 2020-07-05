@@ -6,8 +6,12 @@ import HoverText from "../../../components/UI/HoverText/HoverText";
 import Button from "../../../components/UI/Button/Button";
 import firebase from "../../firebase/firebase";
 
+import ModalRetrieve from "../../../components/UI/Modal/ModalRetrieve/ModalRetrieve";
+import Backdrop from "../../../components/UI/Backdrop/Backdrop";
+
 import { connect } from "react-redux";
 import * as actionTypes from "../../../store/actionTypes";
+import * as actionCreators from "../../../store/actionCreators";
 
 class SignIn extends Component {
   state = {
@@ -23,6 +27,7 @@ class SignIn extends Component {
       errorPassword: null,
     },
     error: false,
+    modalIsOpen: false,
   };
 
   handleChange(event, boxType) {
@@ -85,16 +90,41 @@ class SignIn extends Component {
   };
 
   async login() {
+    let userUrl = null;
+    const urlString = document.location.href;
+    const subString = urlString.substring(0, urlString.indexOf("/login"));
     if (this.state.buttonClicked) {
       try {
         await firebase.login(this.state.email.value, this.state.password.value);
+        userUrl = this.exactString(this.state.email.value);
+        await this.props.getInfoAfterLoggedIn(subString, userUrl);
         this.props.authenticateUser();
-        this.props.history.push("/profile");
+        this.props.history.push("/profile/" + userUrl);
       } catch (error) {
         alert(error.message);
       }
     }
   }
+
+  exactString = (stringVal) => {
+    let subString1 = stringVal.substring(0, stringVal.indexOf("."));
+    let subString2 = stringVal.substring(
+      stringVal.indexOf(".") + 1,
+      stringVal.length
+    );
+    const exactedString = subString1 + subString2;
+
+    return exactedString;
+  };
+
+  showModal = () => {
+    this.setState({ modalIsOpen: true });
+  };
+
+  closeModal = () => {
+    this.setState({ modalIsOpen: false });
+    this.setState({ buttonClicked: true });
+  };
 
   render() {
     const h2Class = [classes.title];
@@ -126,6 +156,12 @@ class SignIn extends Component {
             clicked={this.buttonClickedHandler}
           />
           <Button styling="btn1 btnUp" buttonText="Sign Up Here" path="/" />
+
+          <ModalRetrieve
+            show={this.state.modalIsOpen}
+            closed={this.closeModal}
+          />
+          <Backdrop show={this.state.modalIsOpen} />
         </form>
       </div>
     );
@@ -142,6 +178,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     authenticateUser: () => dispatch({ type: actionTypes.AUTHENTICATE }),
+    getInfoAfterLoggedIn: (currentPage, userKey) =>
+      dispatch(actionCreators.pullInfo(currentPage, userKey)),
   };
 };
 

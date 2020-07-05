@@ -11,6 +11,9 @@
 - Drop down list:
   https://github.com/Godsont/Custom-Select-Box
 
+- Spinner:
+  https://tobiasahlin.com/spinkit/
+
 2b. Trick learnt from the project:
 
 - Swap, remove and add element of array in javascript:
@@ -33,7 +36,8 @@
 
 3. Tasks to be done:
 
-- Fully back-end implemented[]
+- Fully back-end implemented[]:
+  +, Connected to firebase storage[DONE]
 - application beta finish[]
 
 - Learn firestore[]
@@ -42,4 +46,8 @@
 
 - Implement modal for error instead of alerting it
   (sign in, sign up, retrieve password) []
-- Implement Loader for async task (retrieve) []
+- Implement view password for needed TextBoxes
+
+PROGRESS:
+
+NEED TO UPDATE THE STORE AFTER LOGGED IN WITH DATA

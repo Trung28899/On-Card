@@ -7,15 +7,13 @@ class Modal extends Component {
   };
 
   render() {
-    const cssClasses = [
-      classes.Modal,
-      this.props.show ? classes.ModalOpen : classes.ModalClosed,
-    ];
+    let cssClasses = [classes.input];
+
     return (
       <input
         type="text"
-        placeholder="Enter URL / Phone Number"
-        className={classes.input}
+        placeholder={this.props.textHolder}
+        className={cssClasses}
         onChange={(event) => this.updateInput(event)}
       ></input>
     );

@@ -19,6 +19,7 @@ class EditProfile extends Component {
 
   logoutHandler = () => {
     this.props.unauthenticateUser();
+    this.props.logOutResetStore();
     this.props.history.replace("/login");
   };
 
@@ -54,6 +55,7 @@ const mapDispatchToProps = (dispatch) => {
     // This is unused
     authenticateUser: () => dispatch({ type: actionTypes.AUTHENTICATE }),
     unauthenticateUser: () => dispatch({ type: actionTypes.UNAUTHENTICATE }),
+    logOutResetStore: () => dispatch({ type: actionTypes.LOGOUT }),
   };
 };
 

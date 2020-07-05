@@ -1,22 +1,64 @@
 import React, { Component } from "react";
 import classes from "./UploadImage.module.css";
-import logo from "../../../assets/logo.svg";
 
 import { connect } from "react-redux";
 import * as actionTypes from "../../../store/actionTypes";
+
+import firebase from "../../../containers/firebase/firebase";
 
 class UploadImage extends Component {
   state = {
     imageLoaded: false,
     imgSrc: this.props.avatar,
+    progress: 0,
+    url: null,
+    imageUrl: this.props.avatarURL,
   };
 
   showPreview = (event) => {
     try {
-      let src = URL.createObjectURL(event.target.files[0]);
-      this.setState({ imageLoaded: true, imgSrc: src }, () =>
-        this.props.updateImage(this.state.imgSrc)
-      );
+      const imagePure = event.target.files[0];
+      let src = URL.createObjectURL(imagePure);
+      this.setState({ imageLoaded: true, imgSrc: src }, () => {
+        // this.props.updateImage(this.state.imgSrc);
+        try {
+          const uploadObject = firebase.updateImage(
+            imagePure,
+            imagePure.name,
+            this.props.userEmail
+          );
+          try {
+            uploadObject.on(
+              "state_changed",
+              (snapshot) => {
+                const progress = Math.round(
+                  (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+                this.setState({ progress: progress });
+              },
+              (error) => {
+                console.log(error);
+              },
+              () => {
+                firebase.storage
+                  .ref("images/" + this.props.userEmail)
+                  .child(imagePure.name)
+                  .getDownloadURL()
+                  .then((url) => {
+                    this.setState({ url: url }, () =>
+                      // this.props.updateImage(this.state.imgSrc, this.state.url)
+                      this.props.updateImage(this.state.url, this.state.url)
+                    );
+                  });
+              }
+            );
+          } catch (error) {
+            alert(error);
+          }
+        } catch (error) {
+          alert(error);
+        }
+      });
     } catch (error) {
       // console.log(error);
       console.log("Need to choose an image");
@@ -24,11 +66,20 @@ class UploadImage extends Component {
   };
 
   render() {
+    if (this.state.url) {
+      console.log(`This is the image url: ${this.state.url}`);
+    }
     return (
       <div className={classes.center}>
         <div className={classes.formInput}>
           <div className={classes.preview}>
-            <img src={this.state.imgSrc} id="file-ip-1-preview" />
+            <img
+              src={
+                this.props.avatarURL ? this.props.avatarURL : this.state.imgSrc
+              }
+              alt="avatarImg"
+              id="file-ip-1-preview"
+            />
           </div>
           <label htmlFor="file-ip-1">
             <i className="fas fa-edit"></i>
@@ -50,6 +101,8 @@ const mapStateToProps = (state) => {
     // This is unused
     loggedIn: state.authenticated,
     avatar: state.userInfo.avatarImg,
+    userEmail: state.userInfo.email,
+    avatarURL: state.userInfo.avatarURL,
   };
 };
 
@@ -58,8 +111,12 @@ const mapDispatchToProps = (dispatch) => {
     // This is unused
     authenticateUser: () => dispatch({ type: actionTypes.AUTHENTICATE }),
     unauthenticateUser: () => dispatch({ type: actionTypes.UNAUTHENTICATE }),
-    updateImage: (imagePassed) =>
-      dispatch({ type: actionTypes.IMAGEUPDATE, imageLoaded: imagePassed }),
+    updateImage: (imagePassed, imageUrl) =>
+      dispatch({
+        type: actionTypes.IMAGEUPDATE,
+        imageLoaded: imagePassed,
+        imageURL: imageUrl,
+      }),
   };
 };
 

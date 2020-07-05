@@ -10,9 +10,17 @@ import { connect } from "react-redux";
 import * as actionTypes from "../../store/actionTypes";
 import { Redirect } from "react-router";
 
+import firebase from "../firebase/firebase";
+
 class MainPage extends Component {
+  state = {
+    keyString: null,
+    userInfo: null,
+  };
+
   logoutHandler = () => {
     this.props.unauthenticateUser();
+    this.props.logOutResetStore();
     this.props.history.replace("/login");
   };
 
@@ -20,18 +28,39 @@ class MainPage extends Component {
     this.props.history.replace("/profile/edit");
   };
 
-  render() {
-    const listItems = this.props.userInformation.socialMediaList.map(
-      (value, index) => {
-        return (
-          <LinkBox
-            iconType={value.icon}
-            content={value.title}
-            url={value.url}
-          />
-        );
-      }
+  extractString = (stringVal) => {
+    const extractedString = stringVal.substring(
+      stringVal.indexOf("e/") + 2,
+      stringVal.length
     );
+    return extractedString;
+  };
+
+  componentDidMount() {
+    const keyString = this.extractString(this.props.history.location.pathname);
+    const dataRetrieved = firebase.getRealtimeInfo(keyString);
+    dataRetrieved.on("value", (snap) => {
+      this.setState({ keyString: keyString, userInfo: snap.val() });
+    });
+  }
+
+  render() {
+    let listItems = null;
+    if (this.props.userInformation.socialMediaList) {
+      listItems = this.props.userInformation.socialMediaList.map(
+        (value, index) => {
+          return (
+            <LinkBox
+              iconType={value.icon}
+              content={value.title}
+              url={value.url}
+              key={value.title}
+            />
+          );
+        }
+      );
+    }
+
     if (this.props.loggedIn) {
       return (
         <div className={classes.MainPage}>
@@ -40,7 +69,11 @@ class MainPage extends Component {
             buttonShow={true}
             editProfile={this.editProfileHandler}
             logOut={this.logoutHandler}
-            avatar={this.props.userInformation.avatarImg}
+            avatar={
+              this.props.userInformation.avatarURL === ""
+                ? this.props.userInformation.avatarImg
+                : this.props.userInformation.avatarURL
+            }
             userFullName={this.props.userInformation.fullName}
             userBio={this.props.userInformation.bio}
           />
@@ -66,6 +99,7 @@ const mapDispatchToProps = (dispatch) => {
     // This is unused
     authenticateUser: () => dispatch({ type: actionTypes.AUTHENTICATE }),
     unauthenticateUser: () => dispatch({ type: actionTypes.UNAUTHENTICATE }),
+    logOutResetStore: () => dispatch({ type: actionTypes.LOGOUT }),
   };
 };
 

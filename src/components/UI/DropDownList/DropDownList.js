@@ -35,17 +35,19 @@ class DropDownList extends Component {
     }
 
     const itemList = [
-      { content: "Facebook", key: "facebook" },
+      { content: "Tiktok", key: "tiktok" },
       { content: "Instagram", key: "instagram" },
+      { content: "Twitter", key: "twitter" },
+      { content: "Facebook", key: "facebook" },
+      { content: "Youtube", key: "youtube" },
       { content: "Linkedin", key: "linkedin" },
       { content: "Email", key: "mail" },
       { content: "Phone Number", key: "phoneNumber" },
       { content: "Snapchat", key: "snapchat" },
       { content: "Soundcloud", key: "soundcloud" },
-      { content: "Tiktok", key: "tiktok" },
-      { content: "Twitter", key: "twitter" },
-      { content: "URL", key: "url" },
-      { content: "Youtube", key: "youtube" },
+      { content: "Website", key: "url" },
+      { content: "Blog", key: "url1" },
+      { content: "Other URL", key: "url2" },
     ];
 
     const list = itemList.map((objectValue, index) => {

@@ -7,17 +7,46 @@ import Footer from "../Footer/Footer";
 import waveImg from "../../assets/wave.png";
 
 import { connect } from "react-redux";
-import * as actionTypes from "../../store/actionTypes";
+import * as actionCreators from "../../store/actionCreators";
+
+import firebase from "../firebase/firebase";
 
 class MainPage extends Component {
+  state = {
+    objectVal: null,
+  };
+
+  getKeyString = () => {
+    const fullUrl = window.location.href;
+    const subString = fullUrl.substring(
+      fullUrl.indexOf("/view/") + 6,
+      fullUrl.length
+    );
+    return subString;
+  };
+
+  componentDidMount() {
+    const indexString = this.getKeyString();
+    const indexingObject = firebase.getKeyStringByIndex(indexString);
+    try {
+      indexingObject.on("value", (snap) => {
+        let keyValue = snap.val();
+        this.props.getInfoView(keyValue);
+      });
+    } catch (error) {
+      alert(error);
+    }
+  }
+
   render() {
     const listItems = this.props.userInformation.socialMediaList.map(
-      (value, index) => {
+      (value) => {
         return (
           <LinkBox
             iconType={value.icon}
             content={value.title}
             url={value.url}
+            key={value.url}
           />
         );
       }
@@ -47,9 +76,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // This is unused
-    authenticateUser: () => dispatch({ type: actionTypes.AUTHENTICATE }),
-    unauthenticateUser: () => dispatch({ type: actionTypes.UNAUTHENTICATE }),
+    getInfoView: (keyString) => {
+      dispatch(actionCreators.pullInfoView(keyString));
+    },
   };
 };
 

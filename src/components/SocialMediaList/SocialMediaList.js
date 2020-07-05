@@ -9,6 +9,8 @@ import ModalRetrieve from "../UI/Modal/ModalRetrieve/ModalRetrieve";
 import { connect } from "react-redux";
 import * as actionTypes from "../../store/actionTypes";
 
+import firebase from "../../containers/firebase/firebase";
+
 class SocialMediaList extends Component {
   state = {
     modalIsOpen: false,
@@ -136,23 +138,40 @@ class SocialMediaList extends Component {
     return addObject;
   };
 
+  exactString = (stringVal) => {
+    let subString1 = stringVal.substring(0, stringVal.indexOf("."));
+    let subString2 = stringVal.substring(
+      stringVal.indexOf(".") + 1,
+      stringVal.length
+    );
+    const exactedString = subString1 + subString2;
+
+    return exactedString;
+  };
+
   updateButtonHandler = () => {
+    const keyString = this.exactString(this.props.dataObject.userInfo.email);
+    firebase.updateData(this.props.dataObject, keyString);
     this.setState({ modalRetrieveIsOpen: true });
   };
 
   render() {
-    const listItems = this.state.socialMediaList.map((value, index) => {
-      return (
-        <LinkBoxEdit
-          key={index}
-          content={value.title}
-          iconType={value.icon}
-          btnUpClicked={() => this.btnUpClickedHandler(index)}
-          btnDownClicked={() => this.btnDownClickedHandler(index)}
-          deleteClicked={() => this.deleteClickedHandler(index)}
-        />
-      );
-    });
+    let listItems = null;
+
+    if (this.state.socialMediaList) {
+      listItems = this.state.socialMediaList.map((value, index) => {
+        return (
+          <LinkBoxEdit
+            key={index}
+            content={value.title}
+            iconType={value.icon}
+            btnUpClicked={() => this.btnUpClickedHandler(index)}
+            btnDownClicked={() => this.btnDownClickedHandler(index)}
+            deleteClicked={() => this.deleteClickedHandler(index)}
+          />
+        );
+      });
+    }
 
     // this.swap(values, 1, 3);
     // console.log(values);
@@ -201,7 +220,10 @@ class SocialMediaList extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    accountList: state.userInfo.socialMediaList,
+    dataObject: state,
+    accountList: state.userInfo.socialMediaList
+      ? state.userInfo.socialMediaList
+      : [],
   };
 };
 

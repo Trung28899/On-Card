@@ -4,14 +4,14 @@ import avatar from "../../../assets/logo.svg";
 import TextBox from "../../../components/UI/TextBox/TextBox";
 import HoverText from "../../../components/UI/HoverText/HoverText";
 import Button from "../../../components/UI/Button/Button";
+import ModalRetrieve from "../../../components/UI/Modal/ModalRetrieve/ModalRetrieve";
+import Backdrop from "../../../components/UI/Backdrop/Backdrop";
+
 import firebase from "../../firebase/firebase";
 
 class SignUp extends Component {
   state = {
     email: {
-      value: null,
-    },
-    serialNo: {
       value: null,
     },
     userName: {
@@ -25,21 +25,20 @@ class SignUp extends Component {
     },
     validation: {
       errorEmail: null,
-      errorSerialNo: null,
       errorUserName: null,
       errorPassword: null,
       errorPasswordConfirm: null,
     },
     error: false,
+    userNumber: 2,
+    modalIsOpen: false,
+    buttonClicked: false,
   };
 
   handleChange = (event, boxType) => {
     switch (boxType) {
       case "email":
         this.setState({ email: { value: event.target.value } });
-        break;
-      case "serialNo":
-        this.setState({ serialNo: { value: event.target.value } });
         break;
       case "userName":
         this.setState({ userName: { value: event.target.value } });
@@ -58,7 +57,6 @@ class SignUp extends Component {
 
   formValidation() {
     let errorEmail = null,
-      errorSerialNo = null,
       errorUserName = null,
       errorPassword = null,
       errorPasswordConfirm = null;
@@ -73,15 +71,6 @@ class SignUp extends Component {
       }
     }
 
-    // serial no validation:
-    if (
-      this.state.serialNo.value === null ||
-      this.state.serialNo.value === ""
-    ) {
-      errorSerialNo = "*Field Required !";
-    }
-
-    // serial no validation:
     if (
       this.state.userName.value === null ||
       this.state.userName.value === ""
@@ -89,7 +78,6 @@ class SignUp extends Component {
       errorUserName = "*Field Required !";
     }
 
-    // serial no validation:
     if (
       this.state.password.value === null ||
       this.state.password.value === ""
@@ -97,7 +85,6 @@ class SignUp extends Component {
       errorPassword = "*Field Required !";
     }
 
-    // serial no validation:
     if (this.state.password.value !== this.state.passwordConfirm.value) {
       errorPasswordConfirm = "*Password Not Matching";
     } else if (
@@ -115,7 +102,6 @@ class SignUp extends Component {
         validation: {
           errorEmail: errorEmail,
           errorUserName: errorUserName,
-          errorSerialNo: errorSerialNo,
           errorPassword: errorPassword,
           errorPasswordConfirm: errorPasswordConfirm,
         },
@@ -125,7 +111,6 @@ class SignUp extends Component {
         if (
           this.state.validation.errorEmail ||
           this.state.validation.errorUserName ||
-          this.state.validation.errorSerialNo ||
           this.state.validation.errorPassword ||
           this.state.validation.errorPassword ||
           this.state.validation.errorPasswordConfirm
@@ -142,27 +127,35 @@ class SignUp extends Component {
     this.formValidation();
   };
 
-  // register(userName, email, password, serialNo)
-
   async registerUser() {
+    const serialNo = `${this.state.email.value[0]}${this.state.email.value[1]}${
+      this.state.userNumber + 1
+    }`;
     try {
       await firebase.register(
-        this.state.userName.value,
         this.state.email.value,
         this.state.password.value,
-        this.state.serialNo.value
+        this.state.userName.value
       );
       await firebase.addUser(
         this.state.userName.value,
         this.state.email.value,
-        this.state.password.value,
-        this.state.serialNo.value
+        this.state.userNumber + 1,
+        serialNo
       );
+      await firebase.addUserIndex(this.state.email.value, serialNo);
+      firebase.incrementUsers(this.state.userNumber);
       this.sendVerificationEmail();
-      this.props.history.replace("/profile/");
+      this.showModal();
     } catch (error) {
       alert(error.message);
     }
+  }
+
+  componentDidMount() {
+    firebase.getUserNumber().on("value", (snap) => {
+      this.setState({ userNumber: snap.val() });
+    });
   }
 
   onSubmitHandler = () => {
@@ -181,55 +174,77 @@ class SignUp extends Component {
       });
   };
 
+  showModal = () => {
+    this.setState({ modalIsOpen: true });
+  };
+
+  closeModal = () => {
+    this.setState({ modalIsOpen: false, buttonClicked: true });
+  };
+
+  /*
+    <TextBox
+      error={this.state.validation.errorSerialNo}
+      iconClasses='fas fa-qrcode'
+      textboxName='On-Card Serial Number'
+      inputType='text'
+      changed={(event) => this.handleChange(event, "serialNo")}
+    />
+  */
+
   render() {
+    if (this.state.buttonClicked) {
+      this.props.history.push("/login");
+    }
 
     return (
       <div className={classes.loginContent}>
         <form onSubmit={this.onSubmitHandler}>
-          <img src={avatar} alt='avatar' />
+          <img src={avatar} alt="avatar" />
           <h2>Create Your Profile</h2>
           <TextBox
             error={this.state.validation.errorEmail}
-            iconClasses='fas fa-envelope'
-            textboxName='Email'
-            inputType='email'
+            iconClasses="fas fa-envelope"
+            textboxName="Email"
+            inputType="email"
             changed={(event) => this.handleChange(event, "email")}
           />
           <TextBox
-            error={this.state.validation.errorSerialNo}
-            iconClasses='fas fa-qrcode'
-            textboxName='On-Card Serial Number'
-            inputType='text'
-            changed={(event) => this.handleChange(event, "serialNo")}
-          />
-          <TextBox
             error={this.state.validation.errorUserName}
-            iconClasses='fas fa-user'
-            textboxName='Username (visible on Profile)'
-            inputType='text'
+            iconClasses="fas fa-user"
+            textboxName="Username (visible on Profile)"
+            inputType="text"
             changed={(event) => this.handleChange(event, "userName")}
           />
           <TextBox
             error={this.state.validation.errorPassword}
-            iconClasses='fas fa-lock'
-            textboxName='Password'
-            inputType='password'
+            iconClasses="fas fa-lock"
+            textboxName="Password"
+            inputType="password"
             changed={(event) => this.handleChange(event, "password")}
           />
           <TextBox
             error={this.state.validation.errorPasswordConfirm}
-            iconClasses='fas fa-lock'
-            textboxName='Confirm Your Password'
-            inputType='password'
+            iconClasses="fas fa-lock"
+            textboxName="Confirm Your Password"
+            inputType="password"
             changed={(event) => this.handleChange(event, "passwordConfirm")}
           />
-          <HoverText innerText='Return to Login.' path='/login' />
+          <HoverText innerText="Return to Login." path="/login" />
           <Button
-            styling='btn1 btnUp'
-            buttonText='Create Your Profile'
+            styling="btn1 btnUp"
+            buttonText="Create Your Profile"
             clicked={this.registerClicked}
           />
         </form>
+        <ModalRetrieve
+          show={this.state.modalIsOpen}
+          closed={this.closeModal}
+          h3text="Register Successfully."
+          h3text2="Please Check Your Email For Account Verification !"
+          buttonName="Go To Login"
+        />
+        <Backdrop show={this.state.modalIsOpen} />
       </div>
     );
   }
