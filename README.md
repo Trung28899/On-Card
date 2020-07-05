@@ -36,18 +36,8 @@
 
 3. Tasks to be done:
 
-- Fully back-end implemented[]:
-  +, Connected to firebase storage[DONE]
-- application beta finish[]
-
-- Learn firestore[]
-
 4. Improvement tasks:
 
 - Implement modal for error instead of alerting it
   (sign in, sign up, retrieve password) []
 - Implement view password for needed TextBoxes
-
-PROGRESS:
-
-NEED TO UPDATE THE STORE AFTER LOGGED IN WITH DATA
