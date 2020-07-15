@@ -13,6 +13,7 @@ import tiktok from "../../../assets/icons/tiktok.svg";
 import twitter from "../../../assets/icons/twitter.svg";
 import url from "../../../assets/icons/url.svg";
 import youtube from "../../../assets/icons/youtube.svg";
+import github from "../../../assets/icons/github.svg";
 
 class LinkBox extends Component {
   loadImage = (imageType) => {
@@ -47,6 +48,9 @@ class LinkBox extends Component {
         break;
       case "youtube":
         imageLoad = youtube;
+        break;
+      case "github":
+        imageLoad = github;
         break;
       default:
         imageLoad = url;

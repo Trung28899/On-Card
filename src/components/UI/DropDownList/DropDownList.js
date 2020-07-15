@@ -45,6 +45,7 @@ class DropDownList extends Component {
       { content: "Phone Number", key: "phoneNumber" },
       { content: "Snapchat", key: "snapchat" },
       { content: "Soundcloud", key: "soundcloud" },
+      { content: "Github", key: "github" },
       { content: "Website", key: "url" },
       { content: "Blog", key: "url1" },
       { content: "Other URL", key: "url2" },

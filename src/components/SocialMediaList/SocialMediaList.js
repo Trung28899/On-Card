@@ -132,6 +132,9 @@ class SocialMediaList extends Component {
       case "Youtube":
         addObject = { title: accountType, icon: "youtube", url: url };
         break;
+      case "Github":
+        addObject = { title: accountType, icon: "github", url: url };
+        break;
       default:
         addObject = { title: accountType, icon: "url", url: url };
     }
