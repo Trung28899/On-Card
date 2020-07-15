@@ -10,6 +10,8 @@ class TextBox extends Component {
     focused: false,
     error: false,
     textboxName: this.props.textboxName,
+    showPwd: false,
+    inputType: this.props.inputType,
   };
 
   componentDidMount() {
@@ -40,7 +42,25 @@ class TextBox extends Component {
     }
   };
 
+  showPassword = () => {
+    this.setState({ showPwd: !this.state.showPwd }, () => {
+      if (this.state.showPwd) {
+        this.setState({ inputType: "text" });
+      } else {
+        this.setState({ inputType: "password" });
+      }
+    });
+  };
+
   render() {
+    let eyeicon = null;
+    if (this.props.inputType === "password") {
+      eyeicon = <i className="far fa-eye"></i>;
+    }
+
+    if (this.state.showPwd) {
+      eyeicon = <i className="fas fa-eye-slash"></i>;
+    }
     return (
       <div className={this.state.divClasses.join(" ")}>
         <div className={classes.i}>
@@ -50,7 +70,7 @@ class TextBox extends Component {
           <h5>{this.state.textboxName}</h5>
           <input
             required
-            type={this.props.inputType}
+            type={this.state.inputType}
             placeholder={this.props.textHolder}
             className={classes.input}
             onFocus={this.addcl}
@@ -70,6 +90,7 @@ class TextBox extends Component {
               }
             }}
           />
+
           {this.props.error !== null && !this.state.focused ? (
             <span className={classes.errorSpan}>{this.props.error}</span>
           ) : null}
@@ -77,6 +98,9 @@ class TextBox extends Component {
           this.props.error !== "*Field Required !" ? (
             <span className={classes.errorSpan}>{this.props.error}</span>
           ) : null}
+          <div className={classes.eyeIcon} onClick={this.showPassword}>
+            {eyeicon}
+          </div>
         </div>
       </div>
     );
